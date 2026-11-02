@@ -1,0 +1,36 @@
+name: Unsigned iOS IPA
+
+on:
+  push:
+    branches: [build/ios-unsigned]
+    paths:
+      - ios/**
+      - app/AppIcon.icon/**
+      - scripts/build-ios-unsigned.sh
+      - .github/workflows/ios-unsigned.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Install the Metal toolchain
+        run: xcrun --sdk iphoneos metal --version || xcodebuild -downloadComponent MetalToolchain
+      - name: Build and package the unsigned IPA
+        run: bash scripts/build-ios-unsigned.sh
+      - name: Upload the IPA and checksum
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: HEX-ios-unsigned
+          path: dist/ios/
+          if-no-files-found: error
+          retention-days: 14
