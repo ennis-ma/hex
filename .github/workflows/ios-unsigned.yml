@@ -26,6 +26,9 @@ jobs:
       - name: Install the Metal toolchain
         run: xcrun --sdk iphoneos metal --version || xcodebuild -downloadComponent MetalToolchain
       - name: Build and package the unsigned IPA
+        env:
+          HEX_APP_GROUP: ${{ vars.HEX_APP_GROUP }}
+          HEX_IOS_BUILD_NUMBER: ${{ vars.HEX_IOS_BUILD_NUMBER }}
         run: bash scripts/build-ios-unsigned.sh
       - name: Upload the IPA and checksum
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7

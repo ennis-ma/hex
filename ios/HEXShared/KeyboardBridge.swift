@@ -302,7 +302,8 @@ nonisolated struct KeyboardSnapshot: Codable, Equatable, Sendable {
 
 @MainActor
 struct KeyboardBridge {
-    static let appGroup = "group.com.kitlangton.hex.mobile"
+    static let appGroup = Bundle.main.object(forInfoDictionaryKey: "HexAppGroup") as? String
+        ?? "group.com.kitlangton.hex.mobile"
 
     private enum Key {
         static let command = "keyboard.command"

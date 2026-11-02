@@ -1948,6 +1948,7 @@ Windows `hex app` -> one tray process, Rune window // dev.rune-ui-windows
 ├── Modes app icons: the executable's first icon (PrivateExtractIconsW)
 └── Not yet: custom caption
 iOS prototype -> Record/transcribe/copy and keyboard handoff
+└── Sideloaded keyboard sharing requires the profile's App Group in both targets (`HEX_APP_GROUP`; iOS guide)
 Unmerged Windows / deferred features -> Not part of this map
 ```
 

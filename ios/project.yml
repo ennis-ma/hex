@@ -12,6 +12,7 @@ packages:
 settings:
   base:
     DEVELOPMENT_TEAM: QC99C9JE59
+    HEX_APP_GROUP: group.com.kitlangton.hex.mobile
     SWIFT_VERSION: 6.0
 targets:
   HEXMobile:
@@ -35,6 +36,7 @@ targets:
         CFBundleDisplayName: Hex
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        HexAppGroup: $(HEX_APP_GROUP)
         CADisableMinimumFrameDurationOnPhone: true
         CFBundleURLTypes:
           - CFBundleTypeRole: Editor
@@ -85,6 +87,7 @@ targets:
         CFBundleDisplayName: Hex Keyboard
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        HexAppGroup: $(HEX_APP_GROUP)
         NSExtension:
           NSExtensionAttributes:
             IsASCIICapable: true

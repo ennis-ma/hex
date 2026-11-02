@@ -79,6 +79,23 @@ xcodegen generate
 xcodebuild test -project HEXMobile.xcodeproj -scheme HEXMobile -destination "id=<SIM_UDID>"
 ```
 
+For an unsigned device IPA, run `bash scripts/build-ios-unsigned.sh` from the
+repository root. When a sideloading profile grants a different App Group, set
+`HEX_APP_GROUP` to an identifier authorized by that profile. This build setting
+configures the app and keyboard entitlements and their `HexAppGroup` Info.plist
+values; both processes use it for shared storage, including keyboard settings.
+The default remains `group.com.kitlangton.hex.mobile`. The signing tool must
+grant the selected group to both the app and keyboard extension. An unsigned
+IPA does not contain signed entitlements, so the signing profile still needs
+to supply them.
+
+The unsigned iOS workflow accepts repository Actions variables `HEX_APP_GROUP`
+and `HEX_IOS_BUILD_NUMBER` (defaults: the original group and build 1). The build
+script verifies that the archived app and keyboard have matching group values,
+all three targets have the requested build number, and all binaries are arm64.
+These checks do not prove that a re-signed app can access the group on a phone;
+that requires opening the keyboard and confirming communication with the app.
+
 ## Simulator vs. Physical iPhone Proof Limits
 
 - **Verified in Simulator (`HEXMobileTests` + `--snap-state` scenes):** Compilation
