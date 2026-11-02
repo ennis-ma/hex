@@ -31,7 +31,7 @@ app="$build_dir/HEX.xcarchive/Products/Applications/HEX.app"
 test -d "$app"
 for bundle in "$app" "$app/PlugIns/HEXKeyboard.appex" "$app/PlugIns/HEXWidgets.appex"; do
   executable=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$bundle/Info.plist")
-  xcrun lipo -verify_arch arm64 "$bundle/$executable"
+  xcrun lipo "$bundle/$executable" -verify_arch arm64
 done
 
 # Package the device archive directly; Xcode's export step requires signing.
